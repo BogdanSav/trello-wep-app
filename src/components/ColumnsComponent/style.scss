@@ -1,12 +1,38 @@
-.card {
+$columnWidth: 350px;
+.column {
     background: rgb(255, 255, 255);
 }
 
 .card-wrapper {
-    width: 300px;
-    margin: 0 20px;
+    width: $columnWidth;
+    margin: 0 10px;
 }
 
-.btn {
-    margin-top: 15px;
+.title {
+    width: 250px;
+    input {
+        width: inherit;
+        padding: 10px;
+        font-weight: 600;
+        font-size: 20px;
+        &:focus {
+            border: 1px solid black;
+            border-radius: 5px 5px;
+        }
+    }
+}
+
+.columns-container {
+    margin: 20px 0 0 0;
+    width: 100%;
+    overflow-x: auto;
+    height: 98vh;
+}
+
+.btn-column__container {
+    margin: 0 10px;
+    .btn-column {
+        height: 35px;
+        width: $columnWidth;
+    }
 }

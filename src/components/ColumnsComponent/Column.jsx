@@ -1,28 +1,39 @@
-import React from 'react';
-import { Grid, Button, TextField, Card, CardContent, Box, Typography } from '@material-ui/core';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
+import { Grid, Button, Card, CardContent, Box, CardActions, Input } from '@material-ui/core';
+import Delete  from '@material-ui/icons/Delete'
 import './style.scss';
-function Column() {
+import { useDispatch } from 'react-redux';
+import {deleteColumn ,changeTitle} from '../../app/reducers/columnsReducer';
+import CardContainer from "../CardsComponent/CardContainer";
+function Column({title, id}) {
+    const dispatch = useDispatch();
+    const [titleText,setTitleText] = useState(title);
+    const changeCurrentTitle = useCallback((e)=>{
+        dispatch(changeTitle({text: e.target.value, id}))
+        setTitleText(e.target.value);
+    },[dispatch, id])
+    const deleteCol = useCallback(()=>{
+        dispatch(deleteColumn(id));
+    },[dispatch, id])
     return (
         <Grid item>
             <Card className="card-wrapper">
-                <CardContent className="card">
+                <CardContent className="column">
                     <Box>
-                        <Typography variant="h5"> it's a title</Typography>
+                        <Input className="title" value={titleText} onChange={(e)=>{changeCurrentTitle(e)}} disableUnderline autoFocus />
+                        <Box component="span">
+                            <Button type="button" onClick={deleteCol}><Delete/></Button>
+                        </Box>
                     </Box>
                     <Box>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
+                        <CardContainer/>
                     </Box>
-                    <Box className="btn">
-                        <Button variant="outlined" > add new card</Button>
-                    </Box>
-
                 </CardContent>
+                <CardActions>
+                    <Box className="btn">
+                        <Button variant="contained" color="primary" > add new card</Button>
+                    </Box>
+                </CardActions>
             </Card>
         </Grid>
 

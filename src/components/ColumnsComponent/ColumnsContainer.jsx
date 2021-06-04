@@ -1,20 +1,37 @@
-import React from 'react';
-import { ColumnContainerGrid } from './styles';
+import React, { useCallback, useEffect, useState } from 'react';
+// import { ColumnContainerGrid } from './styles';
 import Column from './Column';
-import { Button, Container } from '@material-ui/core';
+import { Button, Container, Grid, Box } from '@material-ui/core';
+import "./style.scss"
+import {addNewColumn} from '../../app/reducers/columnsReducer';
+import { useDispatch, useSelector } from 'react-redux';
 function ColumnsContainer() {
+   const columns = useSelector(state=>state.column);
+   const dispatch = useDispatch();
+   const [currentColumns, setColumns] = useState(columns);
+   useEffect(()=>{
+      setColumns(columns);
+   },[columns]);
+   const addColumn = useCallback(()=>{
+      dispatch(addNewColumn(""));
+   },[dispatch]);
    return (
-      <Container maxWidth={false}>
-         <ColumnContainerGrid container direction="row" wrap="nowrap">
-            <Column />
-            <Column />
-            <Column />
-            <Button >Add new column</Button>
-         </ColumnContainerGrid>
-         
+      <Container maxWidth={false}  className="columns-container">
+         <Grid container direction="row" wrap="nowrap">
+           {
+              currentColumns.map((text,id)=>(
+                 <Column title={text} id={id}/>
+              ))
+           }
+            <Box className="btn-column__container">
+               <Button className="btn-column" variant="contained" onClick={addColumn}>Add new column</Button>
+            </Box>
+
+         </Grid>
+
       </Container>
-         
-     
+
+
 
    );
 }

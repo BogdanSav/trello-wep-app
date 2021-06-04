@@ -1,0 +1,11 @@
+$bgColor:rgba(231, 230, 230, 0.89);
+.wrapper-card {
+    margin: 7px auto;
+    .card-title {
+        font-size: 18px;
+        background: $bgColor;
+    }
+    .card {
+        background: $bgColor;
+    }
+}
