@@ -2,23 +2,29 @@ import React, { useState } from 'react';
 import { Grid, Card, CardContent, Typography, CardHeader } from "@material-ui/core";
 import './card.scss'
 import DialogComponent from "./Dialog";
+import Icon from '@material-ui/core/Icon'
 import CancelSharpIcon from '@material-ui/icons/CancelSharp';
-function CardComponent() {
+import MoreVertIcon from '@material-ui/icons/MoreVert';
+function CardComponent({ title, date, desc }) {
     const [open, setOpen] = useState(false);
     return (
         <Grid item>
-            <DialogComponent open={open} setValue={setOpen}/>
+            <DialogComponent open={open} setValue={setOpen} />
             <Card className="wrapper-card">
-                <CardHeader className="card-title" 
-                title="title" 
-                disableTypography
-                action={
-                    <CancelSharpIcon color="primary"/>
-                }
-                 />
-                <CardContent className="card"  onClick={()=>{setOpen(true)}}>
-                    <Typography variant="body1">Date</Typography>
-                    <Typography variant="body2" paragraph>Description</Typography>
+                <CardHeader className="card-title"
+                    title={title}
+                    disableTypography
+                    action={
+                        <Icon>
+                            <MoreVertIcon onClick={() => { setOpen(true) }} />
+                            <CancelSharpIcon color="primary" />
+                        </Icon>
+
+                    }
+                />
+                <CardContent className="card">
+                    <Typography variant="body1">{date}</Typography>
+                    <Typography variant="body2" paragraph>{desc}</Typography>
                 </CardContent>
             </Card>
         </Grid>

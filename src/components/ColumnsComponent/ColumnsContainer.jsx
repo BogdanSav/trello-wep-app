@@ -13,14 +13,14 @@ function ColumnsContainer() {
       setColumns(columns);
    },[columns]);
    const addColumn = useCallback(()=>{
-      dispatch(addNewColumn(""));
+      dispatch(addNewColumn({title:"",cards:[]}));
    },[dispatch]);
    return (
       <Container maxWidth={false}  className="columns-container">
          <Grid container direction="row" wrap="nowrap">
            {
-              currentColumns.map((text,id)=>(
-                 <Column title={text} id={id}/>
+              currentColumns.map((item,id)=>(
+                 <Column title={item.title} id={id}/>
               ))
            }
             <Box className="btn-column__container">

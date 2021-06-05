@@ -19,7 +19,7 @@ function DialogComponent({ open, setValue }) {
                     </FormControl>
                     <FormControl>
                         <InputLabel htmlFor="title">Date</InputLabel>
-                        <Input id="title" />
+                        <Input id="title"  required/>
                     </FormControl>
                 </FormGroup>
                 <TextField

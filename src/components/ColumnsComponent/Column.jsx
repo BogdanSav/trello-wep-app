@@ -3,7 +3,7 @@ import { Grid, Button, Card, CardContent, Box, CardActions, Input } from '@mater
 import Delete  from '@material-ui/icons/Delete'
 import './style.scss';
 import { useDispatch } from 'react-redux';
-import {deleteColumn ,changeTitle} from '../../app/reducers/columnsReducer';
+import {deleteColumn ,changeTitle, addNewCard} from '../../app/reducers/columnsReducer';
 import CardContainer from "../CardsComponent/CardContainer";
 function Column({title, id}) {
     const dispatch = useDispatch();
@@ -15,6 +15,9 @@ function Column({title, id}) {
     const deleteCol = useCallback(()=>{
         dispatch(deleteColumn(id));
     },[dispatch, id])
+    const addCard = useCallback(()=>{
+        dispatch(addNewCard(id));
+    },[dispatch,id])
     return (
         <Grid item>
             <Card className="card-wrapper">
@@ -26,12 +29,12 @@ function Column({title, id}) {
                         </Box>
                     </Box>
                     <Box>
-                        <CardContainer/>
+                        <CardContainer id={id}/>
                     </Box>
                 </CardContent>
                 <CardActions>
                     <Box className="btn">
-                        <Button variant="contained" color="primary" > add new card</Button>
+                        <Button variant="contained" color="primary" onClick={addCard} > add new card</Button>
                     </Box>
                 </CardActions>
             </Card>

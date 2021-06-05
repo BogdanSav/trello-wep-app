@@ -1,13 +1,23 @@
-import React from 'react';
-import {Grid} from '@material-ui/core';
+import React, { useEffect, useState } from 'react';
+import { Grid } from '@material-ui/core';
 import CardComponent from "./CardComponent";
-function CardContainer(){
-   return (
+import { useSelector } from 'react-redux';
+function CardContainer({id}) {
+    
+    const cards = useSelector(state=>state.column[id].cards);
+    console.log(cards);
+    const [currntCards, setCurrentCards] = useState(cards);
+    useEffect(()=>{
+        setCurrentCards(cards);
+    },[cards])
+   
+    return (
         <Grid container direction="column" justify="space-around">
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
-            <CardComponent/>
+            {
+                currntCards.map((item) => (
+                    <CardComponent title={item.title} date={item.date} desc={item.description}/>
+                ))
+            }
         </Grid>
     );
 }
