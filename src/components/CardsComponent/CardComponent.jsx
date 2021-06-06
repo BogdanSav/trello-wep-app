@@ -5,14 +5,17 @@ import DialogComponent from "./Dialog";
 import Icon from '@material-ui/core/Icon'
 import CancelSharpIcon from '@material-ui/icons/CancelSharp';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import {deleteCards} from '../../app/reducers/columnsReducer';
+import { deleteCards } from '../../app/reducers/columnsReducer';
 import { useDispatch } from 'react-redux';
-function CardComponent({ title, date, desc ,idCol, idCard }) {
+import useMoment from "./useMoment"
+
+function CardComponent({ title, date, desc, idCol, idCard }) {
+    const {today}= useMoment();
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
-    const delCard = useCallback(()=>{
-        dispatch(deleteCards({idCol,idCard}));
-    },[dispatch, idCol, idCard])
+    const delCard = useCallback(() => {
+        dispatch(deleteCards({ idCol, idCard }));
+    }, [dispatch, idCol, idCard])
     return (
         <Grid item>
             <DialogComponent open={open} setValue={setOpen} idCol={idCol} idCard={idCard} />
@@ -29,7 +32,7 @@ function CardComponent({ title, date, desc ,idCol, idCard }) {
                     }
                 />
                 <CardContent className="card">
-                    <Typography variant="body1">{date}</Typography>
+                    <Typography variant="body1">{date || today}</Typography>
                     <Typography variant="body2" paragraph>{desc}</Typography>
                 </CardContent>
             </Card>

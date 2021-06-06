@@ -38,7 +38,7 @@ const columnReducer = createSlice({
                 if (id === action.payload) {
                     return {...item,
                         title: item.title,
-                        cards: item.cards.concat({ title: "untitled", date: new Date().toISOString(), description: "type your description" })
+                        cards: item.cards.concat({ title: "untitled", date: "", description: "type your description" })
                     }
                 } else return item;
             });
