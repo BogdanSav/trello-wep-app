@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
-// import { ColumnContainerGrid } from './styles';
 import Column from './Column';
 import { Button, Container, Grid, Box } from '@material-ui/core';
+import {v4} from 'uuid';
 import "./style.scss"
 import {addNewColumn} from '../../app/reducers/columnsReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ function ColumnsContainer() {
          <Grid container direction="row" wrap="nowrap">
            {
               currentColumns.map((item,id)=>(
-                 <Column title={item.title} id={id}/>
+                 <Column key={v4()} title={item.title} id={id}/>
               ))
            }
             <Box className="btn-column__container">

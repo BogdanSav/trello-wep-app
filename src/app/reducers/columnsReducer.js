@@ -29,18 +29,47 @@ const columnReducer = createSlice({
         changeTitle(state, action) {
             return state.map((value, id) => {
                 if (id === action.payload.id) {
-                    return value = action.payload.text;
+                    return {...value, title: action.payload.text, cards: value.cards }
                 } else return value;
             });
         },
         addNewCard(state, action) {
-            console.log(state[action.payload].cards);
+            return state.map((item, id) => {
+                if (id === action.payload) {
+                    return {...item,
+                        title: item.title,
+                        cards: item.cards.concat({ title: "untitled", date: new Date().toISOString(), description: "type your description" })
+                    }
+                } else return item;
+            });
         },
-        // deleteCards(state, action) {
-        //     return state[action.payload].cards = [];
-        // }
+        deleteCards(state, action) {
+            return state.map((item, id) => {
+                if (id === action.payload.idCol) {
+                    return {...item,
+                        title: item.title,
+                        cards: item.cards.filter((item, id) => id !== action.payload.idCard)
+                    }
+                } else return item;
+            });
+        },
+        setCardInfo(state, action) {
+            return state.map((item, id) => {
+                if (id === action.payload.idCol) {
+                    return {...item,
+                        title: item.title,
+                        cards: item.cards.map((_item, _id) => {
+                            if (_id === action.payload.idCard) {
+                                return {..._item, title: action.payload.newTitle, date: action.payload.newDate, description: action.payload.newDesc }
+                            } else return _item;
+
+                        })
+                    }
+                } else return item;
+            });
+        }
     }
 })
 export const columns = state => state;
-export const { addNewColumn, deleteColumn, changeTitle, addNewCard } = columnReducer.actions;
+export const { addNewColumn, deleteColumn, changeTitle, addNewCard, deleteCards, setCardInfo } = columnReducer.actions;
 export default columnReducer.reducer;

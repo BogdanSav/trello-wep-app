@@ -1,15 +1,21 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { Grid, Card, CardContent, Typography, CardHeader } from "@material-ui/core";
 import './card.scss'
 import DialogComponent from "./Dialog";
 import Icon from '@material-ui/core/Icon'
 import CancelSharpIcon from '@material-ui/icons/CancelSharp';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-function CardComponent({ title, date, desc }) {
+import {deleteCards} from '../../app/reducers/columnsReducer';
+import { useDispatch } from 'react-redux';
+function CardComponent({ title, date, desc ,idCol, idCard }) {
+    const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
+    const delCard = useCallback(()=>{
+        dispatch(deleteCards({idCol,idCard}));
+    },[dispatch, idCol, idCard])
     return (
         <Grid item>
-            <DialogComponent open={open} setValue={setOpen} />
+            <DialogComponent open={open} setValue={setOpen} idCol={idCol} idCard={idCard} />
             <Card className="wrapper-card">
                 <CardHeader className="card-title"
                     title={title}
@@ -17,7 +23,7 @@ function CardComponent({ title, date, desc }) {
                     action={
                         <Icon>
                             <MoreVertIcon onClick={() => { setOpen(true) }} />
-                            <CancelSharpIcon color="primary" />
+                            <CancelSharpIcon color="primary" onClick={delCard} />
                         </Icon>
 
                     }

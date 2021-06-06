@@ -1,35 +1,38 @@
-import React, {useCallback, useEffect, useRef, useState} from 'react';
+import React, { useCallback, useState } from 'react';
 import { Grid, Button, Card, CardContent, Box, CardActions, Input } from '@material-ui/core';
-import Delete  from '@material-ui/icons/Delete'
+import Delete from '@material-ui/icons/Delete'
 import './style.scss';
 import { useDispatch } from 'react-redux';
-import {deleteColumn ,changeTitle, addNewCard} from '../../app/reducers/columnsReducer';
+import { deleteColumn, changeTitle, addNewCard } from '../../app/reducers/columnsReducer';
 import CardContainer from "../CardsComponent/CardContainer";
-function Column({title, id}) {
+function Column({ title, id }) {
     const dispatch = useDispatch();
-    const [titleText,setTitleText] = useState(title);
-    const changeCurrentTitle = useCallback((e)=>{
-        dispatch(changeTitle({text: e.target.value, id}))
+    const [titleText, setTitleText] = useState(title);
+    const changeCurrentTitle = useCallback((e) => {
+
         setTitleText(e.target.value);
-    },[dispatch, id])
-    const deleteCol = useCallback(()=>{
+    }, [])
+    const saveTitleChange = useCallback((e) => {
+        dispatch(changeTitle({ text: titleText, id }))
+    }, [dispatch, id, titleText])
+    const deleteCol = useCallback(() => {
         dispatch(deleteColumn(id));
-    },[dispatch, id])
-    const addCard = useCallback(()=>{
+    }, [dispatch, id])
+    const addCard = useCallback(() => {
         dispatch(addNewCard(id));
-    },[dispatch,id])
+    }, [dispatch, id])
     return (
         <Grid item>
             <Card className="card-wrapper">
                 <CardContent className="column">
                     <Box>
-                        <Input className="title" value={titleText} onChange={(e)=>{changeCurrentTitle(e)}} disableUnderline autoFocus />
+                        <Input className="title" value={titleText} onChange={(e) => { changeCurrentTitle(e) }} disableUnderline onBlur={saveTitleChange} />
                         <Box component="span">
-                            <Button type="button" onClick={deleteCol}><Delete/></Button>
+                            <Button type="button" onClick={deleteCol}><Delete /></Button>
                         </Box>
                     </Box>
                     <Box>
-                        <CardContainer id={id}/>
+                        <CardContainer id={id} />
                     </Box>
                 </CardContent>
                 <CardActions>
