@@ -10,7 +10,8 @@ import { useDispatch } from 'react-redux';
 import useMoment from "./useMoment"
 
 function CardComponent({ title, date, desc, idCol, idCard }) {
-    const {today}= useMoment();
+    const {today, setBgColor}= useMoment();
+    const color = setBgColor(date || today)
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
     const delCard = useCallback(() => {
@@ -19,7 +20,7 @@ function CardComponent({ title, date, desc, idCol, idCard }) {
     return (
         <Grid item>
             <DialogComponent open={open} setValue={setOpen} idCol={idCol} idCard={idCard} />
-            <Card className="wrapper-card">
+            <Card className={color ? color : "wrapper-card"}>
                 <CardHeader className="card-title"
                     title={title}
                     disableTypography

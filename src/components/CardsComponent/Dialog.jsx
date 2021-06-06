@@ -1,31 +1,47 @@
 import React, { useCallback, useState } from 'react';
-import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl, InputLabel, Input, TextField, FormGroup, Select, MenuItem, Box, Grid } from "@material-ui/core"
+import { Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl, InputLabel, Input, TextField, FormGroup, Select, MenuItem, Grid } from "@material-ui/core"
 import { setCardInfo } from "../../app/reducers/columnsReducer"
 import { useDispatch } from 'react-redux';
 import useMoment from "./useMoment";
+import {v4} from 'uuid';
 import "./dialog.scss"
 function DialogComponent({ open, setValue, idCol, idCard }) {
+
     const dispatch = useDispatch();
-    const { days, months, years } = useMoment();
+    const { days, months, years, currentDay, currentMonth, currentYear } = useMoment();
     const [title, setTitle] = useState("");
-    const [date, setDate] = useState("");
     const [desc, setDesc] = useState("");
-    const handleSave = useCallback(() => {
-        dispatch(setCardInfo({ idCol, idCard, newTitle: title, newDate: date, newDesc: desc }));
-    }, [dispatch, desc, title, date, idCard, idCol])
+    const [presentDay, setDay] = useState(currentDay);
+    const [presentMonth, setMonth] = useState(currentMonth);
+    const [presentYear, setYear] = useState(currentYear);
+
     const handeleTitleChange = useCallback((t) => {
         setTitle(t.target.value);
     }, [])
-    const handeleDateChange = useCallback((t) => {
-        setDate(t.target.value);
-    }, [])
+
     const handeleDescChange = useCallback((t) => {
         setDesc(t.target.value);
     }, [])
+    const handleSave = useCallback(() => {
+        const date = presentDay + " " + presentMonth + " " + presentYear;
+        dispatch(setCardInfo({ idCol, idCard, newTitle: title, newDate: date, newDesc: desc }));
+    }, [dispatch, desc, title, idCard, idCol, presentDay, presentMonth, presentYear])
+    const changeDay = useCallback((e) => {
+        console.log(e.target.value)
+        setDay(e.target.value);
+    }, []);
+    const changeMonth = useCallback((e) => {
+        console.log(e.target.value)
+        setMonth(e.target.value);
+    }, []);
+    const changeYear = useCallback((e) => {
+        console.log(e.target.value)
+        setYear(e.target.value);
+    }, []);
     const handleClose = useCallback(() => {
         handleSave();
         setValue(false);
-    }, [setValue, handleSave])
+    }, [setValue, handleSave]);
     return (
         <Dialog
             open={open}
@@ -36,17 +52,22 @@ function DialogComponent({ open, setValue, idCol, idCard }) {
                 <FormGroup>
                     <FormControl>
                         <InputLabel htmlFor="title">Title</InputLabel>
-                        <Input id="title" value={title} onChange={handeleTitleChange}  required/>
+                        <Input id="title" value={title} onChange={handeleTitleChange} />
                     </FormControl>
-                    <Grid container>
+                    <Grid container direction="row" justify="space-between">
                         <Grid item>
                             <FormControl>
                                 <InputLabel id="days">Day</InputLabel>
+                                <Select
+                                    className="days-select"
+                                    labelId="days"
 
-                                <Select className="days-select" labelId="days">
+                                    value={presentDay}
+                                    onChange={changeDay}
+                                >
                                     {
                                         days.map((value) => (
-                                            <MenuItem value={value}>{value}</MenuItem>
+                                            <MenuItem key={v4()} value={value}>{value}</MenuItem>
                                         ))
                                     }
                                 </Select>
@@ -57,11 +78,17 @@ function DialogComponent({ open, setValue, idCol, idCard }) {
                             <FormControl>
                                 <InputLabel id="month">month</InputLabel>
 
-                                <Select className="month-select" labelId="month">
+                                <Select
+                                    className="month-select"
+                                    labelId="month"
+
+                                    value={presentMonth}
+                                    onChange={changeMonth}
+                                >
 
                                     {
                                         months.map((value) => (
-                                            <MenuItem value={value}>{value}</MenuItem>
+                                            <MenuItem key={v4()} value={value}>{value}</MenuItem>
                                         ))
                                     }
 
@@ -73,12 +100,17 @@ function DialogComponent({ open, setValue, idCol, idCard }) {
                         <Grid item>
                             <FormControl>
                                 <InputLabel id="years">year</InputLabel>
+                                <Select
+                                    className="years-select"
+                                    labelId="years"
 
-                                <Select className="years-select" labelId="years">
+                                    value={presentYear}
+                                    onChange={changeYear}
+                                >
 
                                     {
                                         years.map((value) => (
-                                            <MenuItem value={value}>{value}</MenuItem>
+                                            <MenuItem key={v4()} value={value}>{value}</MenuItem>
                                         ))
                                     }
 
@@ -89,7 +121,7 @@ function DialogComponent({ open, setValue, idCol, idCard }) {
                         </Grid>
                     </Grid>
                 </FormGroup>
-                
+
                 <TextField
                     label="Description"
                     multiline

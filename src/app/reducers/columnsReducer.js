@@ -6,7 +6,7 @@ const columnReducer = createSlice({
             title: "first one",
             cards: [{
                 title: "card1",
-                date: "05.06.2021",
+                date: "5 Jun 2021",
                 description: "Desc"
             }]
         },
@@ -14,7 +14,7 @@ const columnReducer = createSlice({
             title: "second one",
             cards: [{
                 title: "card2",
-                date: "05.06.2021",
+                date: "5 Jun 2021",
                 description: "Desc"
             }]
         }
@@ -38,7 +38,7 @@ const columnReducer = createSlice({
                 if (id === action.payload) {
                     return {...item,
                         title: item.title,
-                        cards: item.cards.concat({ title: "untitled", date: "", description: "type your description" })
+                        cards: item.cards.concat({ title: "untitled" + item.cards.length, date: "", description: "type your description" })
                     }
                 } else return item;
             });
@@ -60,7 +60,11 @@ const columnReducer = createSlice({
                         title: item.title,
                         cards: item.cards.map((_item, _id) => {
                             if (_id === action.payload.idCard) {
-                                return {..._item, title: action.payload.newTitle, date: action.payload.newDate, description: action.payload.newDesc }
+                                return {..._item,
+                                    title: action.payload.newTitle || _item.title,
+                                    date: action.payload.newDate || _item.date,
+                                    description: action.payload.newDesc || _item.description
+                                }
                             } else return _item;
 
                         })

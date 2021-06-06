@@ -1,4 +1,7 @@
 $bgColor:rgba(231, 230, 230, 0.89);
+$orangeBg:#ff8800;
+$redBg:#ff8269;
+$yellowBg: #ffff29;
 .wrapper-card {
     margin: 7px auto;
     .card-title {
@@ -7,5 +10,38 @@ $bgColor:rgba(231, 230, 230, 0.89);
     }
     .card {
         background: $bgColor;
+    }
+}
+
+.orange {
+    margin: 7px auto;
+    .card-title {
+        font-size: 18px;
+        background: $orangeBg;
+    }
+    .card {
+        background: $orangeBg;
+    }
+}
+
+.red {
+    margin: 7px auto;
+    .card-title {
+        font-size: 18px;
+        background: $redBg;
+    }
+    .card {
+        background: $redBg;
+    }
+}
+
+.yellow {
+    margin: 7px auto;
+    .card-title {
+        font-size: 18px;
+        background: $yellowBg;
+    }
+    .card {
+        background: $yellowBg;
     }
 }
