@@ -16,16 +16,15 @@ const useMoment = () => {
 
     }
     const setBgColor = (date) => {
-        const thisDay = moment(date).format("D");
-        if (+thisDay === currentDay) {
+        const tomorrow = moment(today).add(1, "d").format("D MMM yyyy");
+        if (moment(today).isSame(date)) {
             return "orange";
-        } else if (currentDay - +thisDay >= 1) {
-            return "red"
-        } else if (currentDay - +thisDay < 1) {
-            return ""
-        } else if (currentDay - +thisDay === 1) {
+        } else if (date === tomorrow) {
             return "yellow"
+        } else if (moment(today).isAfter(date)) {
+            return "red"
         }
+
 
 
     }
