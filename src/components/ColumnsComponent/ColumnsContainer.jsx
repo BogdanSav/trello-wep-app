@@ -8,10 +8,6 @@ import { useDispatch, useSelector } from 'react-redux';
 function ColumnsContainer() {
    const columns = useSelector(state=>state.column);
    const dispatch = useDispatch();
-   const [currentColumns, setColumns] = useState(columns);
-   useEffect(()=>{
-      setColumns(columns);
-   },[columns]);
    const addColumn = useCallback(()=>{
       dispatch(addNewColumn({title:"",cards:[]}));
    },[dispatch]);
@@ -19,7 +15,7 @@ function ColumnsContainer() {
       <Container maxWidth={false}  className="columns-container">
          <Grid container direction="row" wrap="nowrap">
            {
-              currentColumns.map((item,id)=>(
+              columns.map((item,id)=>(
                  <Column key={v4()} title={item.title} id={id}/>
               ))
            }
