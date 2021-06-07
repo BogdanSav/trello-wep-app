@@ -1,15 +1,17 @@
 import { useState, useCallback } from "react";
 import { setCardInfo } from "../../app/reducers/rootReducer"
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useMoment from "./useMoment";
 const useDialogData = (setValue, idCard, idCol) => {
     const dispatch = useDispatch();
-    const { days, months, years, currentDay, currentMonth, currentYear } = useMoment();
+    const date = useSelector(state => state.column[idCol].cards[idCard].date);
+    const { days, months, years, currentDay, currentMonth, currentYear, setDialogDate } = useMoment();
     const [title, setTitle] = useState("");
     const [desc, setDesc] = useState("");
-    const [presentDay, setDay] = useState(currentDay);
-    const [presentMonth, setMonth] = useState(currentMonth);
-    const [presentYear, setYear] = useState(currentYear);
+    const { dayDialog, monthDialog, yearDialog } = setDialogDate(date);
+    const [presentDay, setDay] = useState(+dayDialog || currentDay);
+    const [presentMonth, setMonth] = useState(monthDialog || currentMonth);
+    const [presentYear, setYear] = useState(+yearDialog || currentYear);
 
     const handeleTitleChange = useCallback((t) => {
         if (t.target.value.length > 17) {

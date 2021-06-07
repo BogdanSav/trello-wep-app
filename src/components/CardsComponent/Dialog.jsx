@@ -92,6 +92,7 @@ function DialogComponent({ open, setValue, idCol, idCard }) {
                     rows={5}
                     value={desc}
                     onChange={handeleDescChange}
+                    placeholder={"type your description"}
                 />
             </DialogContent>
             <DialogActions>
