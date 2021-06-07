@@ -5,9 +5,11 @@ import useMoment from "./useMoment";
 const useDialogData = (setValue, idCard, idCol) => {
     const dispatch = useDispatch();
     const date = useSelector(state => state.column[idCol].cards[idCard].date);
+    const lastTitle = useSelector(state => state.column[idCol].cards[idCard].title);
+    const lastDesc = useSelector(state => state.column[idCol].cards[idCard].description);
     const { days, months, years, currentDay, currentMonth, currentYear, setDialogDate } = useMoment();
-    const [title, setTitle] = useState("");
-    const [desc, setDesc] = useState("");
+    const [title, setTitle] = useState(lastTitle);
+    const [desc, setDesc] = useState(lastDesc);
     const { dayDialog, monthDialog, yearDialog } = setDialogDate(date);
     const [presentDay, setDay] = useState(+dayDialog || currentDay);
     const [presentMonth, setMonth] = useState(monthDialog || currentMonth);
