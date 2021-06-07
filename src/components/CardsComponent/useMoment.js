@@ -24,9 +24,6 @@ const useMoment = () => {
         } else if (moment(today).isAfter(date)) {
             return "red"
         }
-
-
-
     }
     return { today, days, months, years, currentDay, currentMonth, currentYear, setBgColor };
 }

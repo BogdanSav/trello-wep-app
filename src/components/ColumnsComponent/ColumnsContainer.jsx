@@ -1,16 +1,13 @@
-import React, { useCallback} from 'react';
+import React  from 'react';
 import Column from './Column';
 import { Button, Container, Grid, Box } from '@material-ui/core';
 import {v4} from 'uuid';
-import "./style.scss"
-import {addNewColumn} from '../../app/reducers/columnsReducer';
-import { useDispatch, useSelector } from 'react-redux';
+import "./style.scss";
+import {useSelector} from "react-redux";
+import useColumnData from './useColumnsData';
 function ColumnsContainer() {
    const columns = useSelector(state=>state.column);
-   const dispatch = useDispatch();
-   const addColumn = useCallback(()=>{
-      dispatch(addNewColumn({title:"",cards:[]}));
-   },[dispatch]);
+   const {addColumn} = useColumnData();
    return (
       <Container maxWidth={false}  className="columns-container">
          <Grid container direction="row" wrap="nowrap">

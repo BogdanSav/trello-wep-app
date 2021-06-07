@@ -2,7 +2,7 @@ import React from 'react';
 import { Grid } from '@material-ui/core';
 import CardComponent from "./CardComponent";
 import { useSelector } from 'react-redux';
-import {v4} from 'uuid';
+import { v4 } from 'uuid';
 function CardContainer({ id }) {
     const cards = useSelector(state => { return state.column[id] ? state.column[id].cards : [] });
     return (

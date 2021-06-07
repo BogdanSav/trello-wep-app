@@ -5,12 +5,12 @@ import DialogComponent from "./Dialog";
 import Icon from '@material-ui/core/Icon'
 import CancelSharpIcon from '@material-ui/icons/CancelSharp';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-import { deleteCards } from '../../app/reducers/columnsReducer';
+import { deleteCards } from '../../app/reducers/rootReducer';
 import { useDispatch } from 'react-redux';
 import useMoment from "./useMoment"
 
 function CardComponent({ title, date, desc, idCol, idCard }) {
-    const {today, setBgColor}= useMoment();
+    const { today, setBgColor } = useMoment();
     const color = setBgColor(date || today)
     const dispatch = useDispatch();
     const [open, setOpen] = useState(false);
@@ -33,8 +33,9 @@ function CardComponent({ title, date, desc, idCol, idCard }) {
                     }
                 />
                 <CardContent className="card">
-                    <Typography variant="body1">{date || today}</Typography>
-                    <Typography variant="body2" paragraph>{desc}</Typography>
+                    <Typography className="date" variant="body1">{date || today}</Typography>
+                    <Typography className="desc" variant="body2">{desc}</Typography>
+
                 </CardContent>
             </Card>
         </Grid>
