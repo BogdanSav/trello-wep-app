@@ -2,14 +2,20 @@ $bgColor:rgba(231, 230, 230, 0.89);
 $orangeBg:#ff8800;
 $redBg:#ff8269;
 $yellowBg: #ffff29;
+$tilteWidth :240px;
 .wrapper-card {
     margin: 7px auto;
     .card-title {
         font-size: 18px;
         background: $bgColor;
+        overflow: hidden;
     }
     .card {
         background: $bgColor;
+    }
+    .desc {
+        width: $tilteWidth;
+        overflow-wrap: break-word;
     }
 }
 
@@ -18,9 +24,14 @@ $yellowBg: #ffff29;
     .card-title {
         font-size: 18px;
         background: $orangeBg;
+        overflow: hidden;
     }
     .card {
         background: $orangeBg;
+    }
+    .desc {
+        width: $tilteWidth;
+        overflow-wrap: break-word;
     }
 }
 
@@ -29,9 +40,14 @@ $yellowBg: #ffff29;
     .card-title {
         font-size: 18px;
         background: $redBg;
+        overflow: hidden;
     }
     .card {
         background: $redBg;
+    }
+    .desc {
+        width: $tilteWidth;
+        overflow-wrap: break-word;
     }
 }
 
@@ -40,8 +56,13 @@ $yellowBg: #ffff29;
     .card-title {
         font-size: 18px;
         background: $yellowBg;
+        overflow: hidden;
     }
     .card {
         background: $yellowBg;
+    }
+    .desc {
+        width: $tilteWidth;
+        overflow-wrap: break-word;
     }
 }

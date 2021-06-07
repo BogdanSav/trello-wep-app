@@ -15,6 +15,15 @@ const useMoment = () => {
         years.push(moment().add(i, 'y').format("yyyy"));
 
     }
+    const setDialogDate = (date) => {
+        const dayDialog = moment(date).format("D");
+        const monthDialog = moment(date).format("MMM");
+        const yearDialog = moment(date).format("yyyy");
+        if (monthDialog === moment.monthsShort(moment(date).month())) {
+            return { dayDialog, monthDialog, yearDialog };
+        } else return { dayDialog, yearDialog };
+
+    };
     const setBgColor = (date) => {
         const tomorrow = moment(today).add(1, "d").format("D MMM yyyy");
         if (moment(today).isSame(date)) {
@@ -24,10 +33,7 @@ const useMoment = () => {
         } else if (moment(today).isAfter(date)) {
             return "red"
         }
-
-
-
     }
-    return { today, days, months, years, currentDay, currentMonth, currentYear, setBgColor };
+    return { today, days, months, years, currentDay, currentMonth, currentYear, setBgColor, setDialogDate };
 }
 export default useMoment;
