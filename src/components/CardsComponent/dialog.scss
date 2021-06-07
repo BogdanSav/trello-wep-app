@@ -1,12 +1,15 @@
-$margin: auto 2px;
+$margin: 2px auto;
 .days-select {
+    margin: $margin;
     width: 50px;
 }
 
 .month-select {
+    margin: $margin;
     width: 75px;
 }
 
 .years-select {
+    margin: $margin;
     width: 80px;
 }
